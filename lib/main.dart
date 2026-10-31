@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
+import 'profile_page.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  MainApp({super.key});
-
-  final String userName = 'Dias Mayri';
-  final String role = 'Mahasiswa Global Institute';
-
-  final List<String> experiences = [
-    'Senior Backend Engineer - EDC Bank DKI',
-    'Backend & System Architect - Secure Payment EDC',
-    'Lead Developer - Aplikasi Sekurindo'
-        'Backend Engineer - Pengembangan Sistem E-money',
-  ];
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,63 +16,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Profil Pengguna'),
-          centerTitle: true,
-          backgroundColor: Colors.blueAccent,
-          foregroundColor: Colors.white,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey,
-                child: Icon(Icons.person, size: 50, color: Colors.white),
-              ),
-
-              const SizedBox(width: 16),
-
-              Column(
-                children: [
-                  Text(
-                    userName,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    role,
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-
-              ElevatedButton.icon(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Fitur edit belum aktif pada modul statis.',
-                      ),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.edit),
-                label: const Text('Edit Profil'),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        ),
-      ),
+      home: const ProfilePage(),
     );
   }
 }
