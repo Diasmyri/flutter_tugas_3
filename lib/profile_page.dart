@@ -6,6 +6,13 @@ class ProfilePage extends StatelessWidget {
   final String userName = 'Dias Mayri';
   final String role = 'Mahasiswa Global Institute';
 
+  final List<String> experiences = const [
+    'Pengembangan Aplikasi Mobile Flutter',
+    'Pembuatan Website Pemesanan Tiket',
+    'Pengembangan Sistem Informasi',
+    'Membuat Aplikasi Berbasis Database',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,67 +42,29 @@ class ProfilePage extends StatelessWidget {
               label: const Text('Edit Profil'),
             ),
             const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(12),
+            const ProfileStats(),
+            const SizedBox(height: 24),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Pengalaman Kerja',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      const Text(
-                        '12',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'Projects',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        '1.2K',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'Followers',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        '350',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'Following',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ],
+            ),
+            const Divider(),
+            Expanded(
+              child: ListView.builder(
+                itemCount: experiences.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    child: ListTile(
+                      leading: const Icon(Icons.work, color: Colors.blueAccent),
+                      title: Text(experiences[index]),
+                    ),
+                  );
+                },
               ),
             ),
           ],
@@ -139,6 +108,54 @@ class ProfileInfo extends StatelessWidget {
           style: TextStyle(fontSize: 16, color: Colors.grey[700]),
           textAlign: TextAlign.center,
         ),
+      ],
+    );
+  }
+}
+
+class ProfileStats extends StatelessWidget {
+  const ProfileStats({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.blueAccent,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          StatItem(count: '12', label: 'Projects'),
+          StatItem(count: '1.2K', label: 'Followers'),
+          StatItem(count: '350', label: 'Following'),
+        ],
+      ),
+    );
+  }
+}
+
+class StatItem extends StatelessWidget {
+  final String count;
+  final String label;
+
+  const StatItem({super.key, required this.count, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          count,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(fontSize: 14, color: Colors.white)),
       ],
     );
   }
