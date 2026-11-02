@@ -11,12 +11,60 @@ class _ProfilePageState extends State<ProfilePage> {
   String userName = 'Dias Mayri';
   final String role = 'Mahasiswa Global Institute';
 
+  final TextEditingController nameController = TextEditingController();
+
   final List<String> experiences = const [
     'Pengembangan Aplikasi Mobile Flutter',
     'Pembuatan Website Pemesanan Tiket',
     'Pengembangan Sistem Informasi',
     'Membuat Aplikasi Berbasis Database',
   ];
+
+  void editProfile() {
+    nameController.text = userName;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit Profil'),
+          content: TextFormField(
+            controller: nameController,
+            decoration: const InputDecoration(
+              labelText: 'Nama Pengguna',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Batal'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (nameController.text.trim().isNotEmpty) {
+                  setState(() {
+                    userName = nameController.text.trim();
+                  });
+
+                  Navigator.pop(context);
+                }
+              },
+              child: const Text('Simpan'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ProfileInfo(userName: userName, role: role),
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Fitur edit belum aktif pada modul statis.'),
-                  ),
-                );
-              },
+              onPressed: editProfile,
               icon: const Icon(Icons.edit),
               label: const Text('Edit Profil'),
             ),
@@ -52,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Pengalaman Kerja',
+                'Project Yang Dibuat',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
